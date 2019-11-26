@@ -17,13 +17,12 @@
 <!--jumbotron 부분-->
 <div class="container">
     <?php
-        include "top_login1.php";
-        include "top_menu1.php";
+        include "./lib/top_login1.php";
+        include "./lib/top_menu1.php";
     ?>
 
 
 </div>
 
 
-</body>
 </html>

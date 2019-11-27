@@ -42,4 +42,17 @@ class membersDao
         }
     }
 
+    // 회원의 아이디 있는지?
+    public function selectMember($id){
+        try {
+            $query = $this->db->prepare("SELECT * FROM member WHERE id=:id");
+            $query->bindValue(":id",$id,PDO::PARAM_STR);
+            $query->execute();
+            $id = $query->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+        return $id;
+    }
+
 }

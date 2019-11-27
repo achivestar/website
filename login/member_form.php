@@ -20,7 +20,44 @@ session_start();
         }
     </style>
     <script>
+
+
         function check_input() {
+
+            if(!document.member_form.id.value){
+                document.getElementById("idValid").innerText="아이디를 입력하세요."
+                document.member_form.id.focus();
+                return false;
+            }else{
+                document.getElementById("idValid").innerText="";
+            }
+
+            if(!document.member_form.pass.value){
+                document.getElementById("pwValid").innerText="비밀번호를 입력하세요."
+                document.member_form.pass.focus();
+                return false;
+            }else{
+                document.getElementById("pwValid").innerText="";
+            }
+
+            if(!document.member_form.name.value){
+                    document.getElementById("nameValid").innerText="이름을 입력하세요."
+                    document.member_form.name.focus();
+                    return false;
+                }else{
+                    document.getElementById("nameValid").innerText="";
+            }
+
+            if(!document.member_form.email.value){
+                document.getElementById("emailValid").innerText="이메일을 입력하세요."
+                document.member_form.email.focus();
+                return false;
+            }else{
+                document.getElementById("emailValid").innerText="";
+            }
+
+
+
 
             var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
             if (!emailRegExp.test(document.getElementById("email").value)) {
@@ -28,11 +65,11 @@ session_start();
                 return false;
             }
 
-            var idRegExp = /^[a-zA-z0-9]{4,12}$/; //아이디 유효성 검사
+/*            var idRegExp = /^[a-zA-z0-9]{4,12}$/; //아이디 유효성 검사
             if (!idRegExp.test(document.getElementById("id").value)) {
                 alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
                 return false;
-            }
+            }*/
 
             if (document.getElementById("id").value == document.getElementById("pw").value) {
                 alert("아이디와 비밀번호는 같을 수 없습니다!");
@@ -47,10 +84,28 @@ session_start();
                 return false;
             }
 
+
+
         }
 
         function checkId() {
-            alert("아이디 중복확인 기능 추가")
+            $.ajax({
+                url: 'checkId.php',
+                type: 'POST',
+                data: {'idCheck':$('#id').val()},
+                dataType: 'html',
+                success: function(data){
+
+                   if(data==1){
+                        document.getElementById("idValid").innerText="이미 사용중인 아이디 입니다";
+                        document.member_form.id.focus();
+                        return false;
+                   }else if(data==0){
+                       document.getElementById("idValid").innerHTML="<span style='color:green'>사용가능한 아이디 입니다</span>";
+                   }
+
+                }
+            });
         }
 
         function checkNick() {
@@ -87,11 +142,9 @@ session_start();
                     <label for="id">ID :</label>
                     <div class="form-check-inline">
                         <label class="form-check-label"><input type="text" class="form-control" id="id"
-                                                               placeholder="Enter ID" name="id" size="70" readonly
-                                                               required></label>
-                        &nbsp;<label class="form-check-label">
-                            <button type="button" class="btn btn-info" onclick="checkId()">중복확인</button>
-                        </label>
+                                                               placeholder="Enter ID" name="id"
+                                                               size="80"  onblur="checkId()"></label>
+
                     </div>
                     <p id="idValid" style="color:red;font-size: 12px"></p>
                 </div>
@@ -99,15 +152,16 @@ session_start();
                 <div class="form-group">
                     <label for="pw">비밀번호 :</label>
                     <div class="form-check-inline">
-                        <input type="password" class="form-control" id="pw" placeholder="비밀번호" name="pass" size="80" required>
+                        <input type="password" class="form-control" id="pw" placeholder="비밀번호" name="pass"  size="73">
                     </div>
+                    <p id="pwValid" style="color:red;font-size: 12px"></p>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="pw_confirm">비번확인 :</label>
                     <div class="form-check-inline">
                         <input type="password" class="form-control" id="pw_confirm" placeholder="비밀번호 재입력"
-                               name="pass_confirm" size="80" required>
+                               name="pass_confirm" size="73">
                     </div>
                 </div>
                 <br>
@@ -116,16 +170,17 @@ session_start();
                     <label for="name">이름 :</label>
                     <div class="form-check-inline">
                         <label class="form-check-label"><input type="text" class="form-control" id="name"
-                                                               placeholder="이름" name="name" size="85" required></label>
+                                                               placeholder="이름" name="name" size="80"></label>
                     </div>
+                    <p id="nameValid" style="color:red;font-size: 12px"></p>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="nick">닉네임 :</label>
                     <div class="form-check-inline">
                         <label class="form-check-label"> <input type="text" class="form-control" id="nick"
-                                                                placeholder="별명" name="nick" size="65"
-                                                                required onblur="checkNick()"></label>
+                                                                placeholder="별명" name="nick" size="80"
+                                                                 onblur="checkNick()"></label>
                     </div>
                     <p id="nickValid" style="color:red;font-size: 12px"></p>
                 </div>
@@ -143,11 +198,11 @@ session_start();
                         </label> -
                         <label class="form-check-label">
                             <input type="text" class="form-control" name="hp2" placeholder="Center Number" maxlength="4"
-                                   required>
+                                   >
                         </label> -
                         <label class="form-check-label">
                             <input type="text" class="form-control" name="hp3" placeholder="Last Number" maxlength="4"
-                                   required>
+                                   >
                         </label>
                     </div>
                 </div>
@@ -155,15 +210,19 @@ session_start();
                 <div class="form-group">
                     <label for="email">이메일 :</label>
                     <div class="form-check-inline">
-                        <label class="form-check-label"> <input type="text" class="form-control" id="email"
-                                                                placeholder="이메일" name="email" size="65"
-                                                                required></label>
+                        <label class="form-check-label">
+                            <input type="text" class="form-control" id="email"
+                                   placeholder="이메일" name="email"
+                                   size="80"  ></label>
                     </div>
                     <p id="emailValid" style="color:red;font-size: 12px"></p>
                 </div>
                  <br><br>
-                <input type="submit" class="btn btn-primary" value="가입하기" />
-                <input type="reset" class="btn btn-secondary" value="취소하기" />
+                <div class="form-group" style="text-align: center">
+                    <input type="submit" class="btn btn-primary" value="가입하기" />
+                    <input type="reset" class="btn btn-secondary" value="취소하기" />
+                </div>
+
             </form>
         </div>
     </div>

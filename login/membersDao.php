@@ -42,10 +42,10 @@ class membersDao
         }
     }
 
-    // 회원의 아이디 있는지?
+    // 회원의 아이디 이미 있는지?
     public function selectMember($id){
         try {
-            $query = $this->db->prepare("SELECT * FROM member WHERE id=:id");
+            $query = $this->db->prepare("SELECT * FROM member WHERE id = :id");
             $query->bindValue(":id",$id,PDO::PARAM_STR);
             $query->execute();
             $id = $query->fetch(PDO::FETCH_ASSOC);
@@ -54,5 +54,36 @@ class membersDao
         }
         return $id;
     }
+
+    public function selectNick($nick){
+        try {
+            $query = $this->db->prepare("SELECT * FROM member WHERE nick = :nick");
+            $query->bindValue(":nick",$nick,PDO::PARAM_STR);
+            $query->execute();
+            $nick = $query->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+        return $nick;
+    }
+
+    // 회원정보 수정하기
+    public function updateMember($id,$pass,$name,$nick,$hp,$email,$regist_day){
+
+        try{
+            $query = $this->db->prepare("UPDATE member SET pass=:pass, name=:name, nick=:nick, hp=:hp, email=:email, regist_day=:regist_day WHERE id = :id ");
+                $query->bindValue(":pass",$pass);
+                $query->bindValue(":name",$name);
+                $query->bindValue(":nick",$nick);
+                $query->bindValue(":hp",$hp);
+                $query->bindValue(":email",$email);
+                $query->bindValue(":regist_day",$regist_day);
+                $query->bindValue(":id",$id);
+                $query->execute();
+        }catch(PDOException $exception){
+            exit($exception->getMessage());
+        }
+    }
+
 
 }

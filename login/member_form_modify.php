@@ -49,11 +49,11 @@ session_start();
             }
 
             if(!document.member_form.name.value){
-                    document.getElementById("nameValid").innerText="이름을 입력하세요.";
-                    document.member_form.name.focus();
-                    return false;
-                }else{
-                    document.getElementById("nameValid").innerText="";
+                document.getElementById("nameValid").innerText="이름을 입력하세요.";
+                document.member_form.name.focus();
+                return false;
+            }else{
+                document.getElementById("nameValid").innerText="";
             }
 
             if(!document.member_form.email.value){
@@ -114,13 +114,13 @@ session_start();
                 dataType: 'html',
                 success: function(data){
 
-                   if(data==1){
+                    if(data==1){
                         document.getElementById("idValid").innerText="이미 사용중인 아이디 입니다";
                         document.member_form.id.focus();
                         return false;
-                   }else if(data==0){
-                       document.getElementById("idValid").innerHTML="<span style='color:green'>사용가능한 아이디 입니다</span>";
-                   }
+                    }else if(data==0){
+                        document.getElementById("idValid").innerHTML="<span style='color:green'>사용가능한 아이디 입니다</span>";
+                    }
 
                 }
             });
@@ -153,6 +153,15 @@ session_start();
     <?php
     include "../lib/top_login_sub.php";
     include "../lib/top_menu_sub.php";
+    include "membersDao.php";
+    if($_SESSION["userid"]){
+        $dao = new MembersDao();
+        $row = $dao->selectMember($_SESSION["userid"]);
+        $hp = explode("-",$row["hp"]);
+        $hp1 = $hp[0];
+        $hp2 = $hp[1];
+        $hp3 = $hp[2];
+    }
     ?>
     <div class="row">
         <div class="col-sm-4 lmenu">
@@ -169,15 +178,15 @@ session_start();
         </div>
         <div class="col-sm-8 col-12">
             <br>
-            <h2>회원가입</h2>
+            <h2>회원정보수정</h2>
             <br><br>
-            <form action="insert.php" method="post" name="member_form" onsubmit="return check_input()">
+            <form action="modify.php" method="post" name="member_form" onsubmit="return check_input()">
                 <div class="form-group">
                     <label for="id">ID :</label>
                     <div class="form-check-inline">
                         <label class="form-check-label"><input type="text" class="form-control" id="id"
-                                                               placeholder="Enter ID" name="id"
-                                                               size="80"  onblur="checkId()"></label>
+                                                             value="<?=$row["id"]?>" name="id" readonly
+                                                               size="80" ></label>
 
                     </div>
                     <p id="idValid" style="color:red;font-size: 12px"></p>
@@ -186,7 +195,7 @@ session_start();
                 <div class="form-group">
                     <label for="pw">비밀번호 :</label>
                     <div class="form-check-inline">
-                        <input type="password" class="form-control" id="pw" placeholder="비밀번호" name="pass"  size="73">
+                        <input type="password" class="form-control" id="pw"  value="<?=$row["pass"]?>" name="pass"  size="73">
                     </div>
                     <p id="pwValid" style="color:red;font-size: 12px"></p>
                 </div>
@@ -194,7 +203,7 @@ session_start();
                 <div class="form-group">
                     <label for="pw_confirm">비번확인 :</label>
                     <div class="form-check-inline">
-                        <input type="password" class="form-control" id="pw_confirm" placeholder="비밀번호 재입력"
+                        <input type="password" class="form-control" id="pw_confirm"  value="<?=$row["pass"]?>"
                                name="pass_confirm" size="73">
                     </div>
                     <p id="rpwValid" style="color:red;font-size: 12px"></p>
@@ -205,7 +214,7 @@ session_start();
                     <label for="name">이름 :</label>
                     <div class="form-check-inline">
                         <label class="form-check-label"><input type="text" class="form-control" id="name"
-                                                               placeholder="이름" name="name" size="80"></label>
+                                                               value="<?=$row["name"]?>" name="name" size="80"></label>
                     </div>
                     <p id="nameValid" style="color:red;font-size: 12px"></p>
                 </div>
@@ -214,8 +223,8 @@ session_start();
                     <label for="nick">닉네임 :</label>
                     <div class="form-check-inline">
                         <label class="form-check-label"> <input type="text" class="form-control" id="nick"
-                                                                placeholder="별명" name="nick" size="80"
-                                                                 onblur="checkNick()"></label>
+                                                                value="<?=$row["nick"]?>" name="nick" size="80"
+                                                                onblur="checkNick()"></label>
                     </div>
                     <p id="nickValid" style="color:red;font-size: 12px"></p>
                 </div>
@@ -225,21 +234,23 @@ session_start();
                     <div class="form-check-inline">
                         <label class="form-check-label">
                             <select class="form-control" id="sel1" name="hp1">
-                                <option>통신사</option>
-                                <option value="010">010</option>
-                                <option value="016">016</option>
-                                <option value="017">017</option>
-                                <option value="018">018</option>
-                                <option value="019">019</option>
+
+                                <option> 통신사</option>
+                                <option value = "010" <?php if($hp1=='010') { echo "selected";}?>> 010</option >
+                                <option value = "016" <?php if($hp1=='016') { echo "selected";}?>> 016</option >
+                                <option value = "017" <?php if($hp1=='017') { echo "selected";}?>> 017</option >
+                                <option value = "018" <?php if($hp1=='018') { echo "selected";}?>> 018</option >
+                                <option value = "019" <?php if($hp1=='019') { echo "selected";}?>> 019</option >
+
                             </select>
                         </label> -
                         <label class="form-check-label">
-                            <input type="text" class="form-control" name="hp2" placeholder="Center Number" maxlength="4"
-                                   >
+                            <input type="text" class="form-control" name="hp2" value="<?=$hp2?>" maxlength="4"
+                            >
                         </label> -
                         <label class="form-check-label">
-                            <input type="text" class="form-control" name="hp3" placeholder="Last Number" maxlength="4"
-                                   >
+                            <input type="text" class="form-control" name="hp3" value="<?=$hp3?>" maxlength="4"
+                            >
                         </label>
                     </div>
                 </div>
@@ -249,14 +260,14 @@ session_start();
                     <div class="form-check-inline">
                         <label class="form-check-label">
                             <input type="text" class="form-control" id="email"
-                                   placeholder="이메일" name="email"
+                                   value="<?=$row["email"]?>" name="email"
                                    size="80"  ></label>
                     </div>
                     <p id="emailValid" style="color:red;font-size: 12px"></p>
                 </div>
-                 <br><br>
+                <br><br>
                 <div class="form-group" style="text-align: center">
-                    <input type="submit" class="btn btn-primary" value="가입하기" />
+                    <input type="submit" class="btn btn-primary" value="수정하기" />
                     <input type="reset" class="btn btn-secondary" value="취소하기" />
                 </div>
 

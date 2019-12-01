@@ -16,5 +16,5 @@ create table memo_ripple(
     nick varchar(10) not null,
     content text not null,
     regist_day varchar(20),
-    primanry key(num)
+    primary key(num)
 );

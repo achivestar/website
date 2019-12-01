@@ -42,6 +42,21 @@ class membersDao
         }
     }
 
+    // 멤버 수(전체 레코드 수) 반환
+    public function getNumMsgs(){
+        try {
+            $query = $this->db->prepare("SELECT COUNT(*) FROM memo");
+            $query->execute();
+
+            $numMsgs = $query->fetchColumn();
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+
+        return $numMsgs;
+    }
+
+
     // 회원의 아이디 이미 있는지?
     public function selectMember($id){
         try {

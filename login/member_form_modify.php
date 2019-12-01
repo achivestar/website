@@ -24,14 +24,6 @@ session_start();
 
         function check_input() {
 
-            if(!document.member_form.id.value){
-                document.getElementById("idValid").innerText="아이디를 입력하세요.";
-                document.member_form.id.focus();
-                return false;
-            }else{
-                document.getElementById("idValid").innerText="";
-            }
-
             if(!document.member_form.pass.value){
                 document.getElementById("pwValid").innerText="비밀번호를 입력하세요.";
                 document.member_form.pass.focus();
@@ -82,12 +74,6 @@ session_start();
                 return false;
             }
 
-            var idRegExp = /^[a-zA-z0-9]{4,12}$/; //아이디 유효성 검사
-            if (!idRegExp.test(document.getElementById("id").value)) {
-                document.getElementById("idValid").innerText="아이디는 영문 또는 숫자로 4~12자리로 입력하세요.";
-                document.member_form.id.focus();
-                return false;
-            }
 
             if (document.getElementById("id").value == document.getElementById("pw").value) {
                 alert("아이디와 비밀번호는 같을 수 없습니다!");
@@ -157,6 +143,7 @@ session_start();
     if($_SESSION["userid"]){
         $dao = new MembersDao();
         $row = $dao->selectMember($_SESSION["userid"]);
+
         $hp = explode("-",$row["hp"]);
         $hp1 = $hp[0];
         $hp2 = $hp[1];

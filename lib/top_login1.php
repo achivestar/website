@@ -1,7 +1,7 @@
 <div class="jumbotron text-center" style="background: #fff">
     <div class="row">
         <div class="col-6 col-md-9">
-            <img src="./img/logo.png" />
+           <a href="./index.php"><img src="./img/logo.png" /></a>
         </div>
         <div class="col-6 col-md-3">
             <?php

@@ -76,6 +76,46 @@ class memoDao
         }
     }
 
+
+    //memo DB에서 삭제
+    public function  deleteMemo($num){
+        try {
+
+            $query = $this->db->prepare("DELETE FROM memo WHERE num = :num");
+            $query->bindValue(":num",$num,PDO::PARAM_INT);
+            $query->execute();
+
+
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+    }
+
+
+    //memo_ripple DB에서 삭제
+    public function  delete_rippleMemo($num){
+        try {
+            $query = $this->db->prepare("DELETE FROM memo_ripple WHERE num = :num");
+            $query->bindValue(":num",$num,PDO::PARAM_INT);
+            $query->execute();
+
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+    }
+
+    //memo_ripple DB에서 삭제
+    public function  delete_rippleMemos($num){
+        try {
+            $query = $this->db->prepare("DELETE FROM memo_ripple WHERE parent = :num");
+            $query->bindValue(":num",$num,PDO::PARAM_INT);
+            $query->execute();
+
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+    }
+
     //memo의 전체 레코드 반환
     public function selectMemoRipple($num){
         try {

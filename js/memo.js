@@ -1,5 +1,3 @@
-
-
 function add() {
 
     $.ajax({
@@ -9,7 +7,9 @@ function add() {
         dataType: "html",
         success: function (data) {
             document.getElementById("valid").style.display = "block";
-            $(".container").load('memo.php');
+           $(".container").load('memo.php');
+
+
         }
 
     });
@@ -20,11 +20,12 @@ function add() {
 function add_not() {
 
     alert("로그인이 필요한 서비스 입니다.");
-    location.href = "../login/login_form.php";
+    location.href = "../login/login_form.php?login=memo";
 
 }
 
 function rippleAdd(num, ripple_content) {
+
     $.ajax({
         url: "./insert_ripple.php",
         type: "post",
@@ -33,6 +34,7 @@ function rippleAdd(num, ripple_content) {
         success: function (data) {
             document.getElementById("valid").style.display = "block";
             $(".container").load('memo.php');
+
         }
 
     });
@@ -41,7 +43,7 @@ function rippleAdd(num, ripple_content) {
 function rippleAddNot() {
 
     alert("로그인이 필요한 서비스 입니다.");
-    location.href = "../login/login_form.php";
+    location.href = "../login/login_form.php?login=memo";
 
 }
 
@@ -60,7 +62,7 @@ function del_memo(num) {
 
 }
 
-function del_momo_ripple(num) {
+function del_memo_ripple(num) {
 
     $.ajax({
         url: "./delete_ripple.php",

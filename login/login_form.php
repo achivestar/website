@@ -1,5 +1,6 @@
 <?php
 session_start();
+$login = $_REQUEST["login"];
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -60,6 +61,7 @@ session_start();
                     </div>
                 </div>
                 <br>
+                <input type="hidden" name="login" value="<?=$login?>"/>
                 <div class="form-group" style="text-align: center">
                     <input type="submit" class="btn btn-primary" value="로그인" />
                 </div>

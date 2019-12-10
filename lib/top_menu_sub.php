@@ -5,7 +5,7 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="./memo.php" class="nav-link">낙서장</a></li>
+            <li class="nav-item"><a href="../memo/memo.php" class="nav-link">낙서장</a></li>
             <li class="nav-item"><a href="#" class="nav-link">가입인사</a></li>
             <li class="nav-item"><a href="#" class="nav-link">연주회소개</a></li>
             <li class="nav-item"><a href="#" class="nav-link">자료실</a></li>

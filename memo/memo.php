@@ -1,7 +1,5 @@
 <?php
 session_start();
-$commentCount = 3;
-
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,61 +9,36 @@ $commentCount = 3;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bluering 연주회</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/memo.css" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="../js/memo.js"></script>
     <script>
-        function show_comment(num,<?=$commentCount?>){
 
-            $.ajax({
+        function moreComment(id, parent) {
+            // alert(id+","+parent);
+            var session_id = "<?=$_SESSION['userid']?>";
 
-                    url: "./load_comments.php",
-                    type: "post",
-                    data: {  num : num , commentNewCount :<?=$commentCount?>},
-                    dataType: "html",
-                    success: function (data) {
-                        alert(data);
-                        //document.getElementById("valid").style.display = "block";
-                       // $(".container").load('memo.php');
+            if (id) {
+                $("#more" + id).html('<img src="loading.gif" style="width:10px;height:10px"/>');
+                $.ajax({
+                    type: "POST",
+                    url: "ajax_more.php",
+                    data: {lastmsg: id, session_id: session_id, parent: parent},
+                    cache: false,
+                    success: function (html) {
+                        $("#comments" + parent).append(html);
+                        $("#more" + parent).remove(); // removing old more button
                     }
-            });
+                });  //end ajax
+            } else {
+                $("#more" + parent).html("");
+            }
 
+            return false;
         }
     </script>
-    <style>
-        #valid {
-            display: none;
-        }
-
-        @media screen and (max-width: 568px) {
-            .lmenu {
-                display: none
-            }
-
-            .memobtn {
-                width: 100%;
-            }
-
-
-        }
-
-        @media screen and (min-width: 1200px) {
-            .memobtn {
-                width: 100%;
-                height: 160px;
-            }
-
-            .ripplebtn {
-                width: 100%;
-                height: 40px;
-                vertical-align: middle;
-            }
-        }
-
-
-    </style>
-
 </head>
 <body>
 <!--jumbotron 부분-->
@@ -76,29 +49,20 @@ $commentCount = 3;
     include_once("memoDao.php");
 
     $dao = new memoDao();
-    $numMsgs = $dao->selectMemo();
+    $msgs = $dao->selectMemo();
     include_once ("./paging.php");
 
     ?>
 
     <div class="row">
-        <div class="col-sm-4 lmenu">
-            <br>
-            <div class="list-group">
-                <a href="./memo.php" class="list-group-item list-group-item-action">낙서장</a>
-                <a href="#" class="list-group-item list-group-item-action">가입인사</a>
-                <a href="#" class="list-group-item list-group-item-action">연주회소개</a>
-                <a href="#" class="list-group-item list-group-item-action">자료실</a>
-                <a href="#" class="list-group-item list-group-item-action">자유게시판</a>
-                <a href="#" class="list-group-item list-group-item-action">레슨문의</a>
-                <a href="#" class="list-group-item list-group-item-action">설문조사</a>
-            </div>
-        </div>
+        <?php
+            include_once "../lib/left_menu_sub.php";
+        ?>
         <div class="col-sm-8 col-12 container">
             <br>
             <h2>메모장</h2>
             <div id="valid" class="alert alert-success"><strong>Success!! </strong></div>
-            <?php if ($numCount > 0) : ?>
+
                 <br><br>
                 <div><span><?php if ($_SESSION["usernick"]) { ?>▷<?= $_SESSION["usernick"] ?><?php } ?></span></div>
                 <form id="memo_form" class="form-group">
@@ -129,36 +93,52 @@ $commentCount = 3;
                 </form>
 
                 <?php foreach ($msgs as $row) : ?>
-                    <div style="background: #CBE8F6;border-radius:5px"  >
-                        <p style="text-indent: 10px">&nbsp<?= $row["nick"] ?>
+                    <div class="memoContent">
+                        <p>&nbsp<?= $row["nick"] ?>
                             &nbsp;&nbsp;&nbsp;<?= $row["regist_day"] ?>
                             &nbsp;<?php if ($_SESSION["userid"] == "admin" || $_SESSION["userid"] == $row["id"]) { ?>
                                 <a href="#none" class="btn btn-link" role="button"
-                                   onclick="del_memo(<?= $row["num"] ?>)" class="btn btn-link">삭제</a>
+                                   onclick="del_memo(<?= $row["num"] ?>)">삭제</a>
                             <?php } ?></p>
                         <hr>
-                        <p style="text-indent: 10px"><?= $row["content"] ?></p>
+                        <p><?= $row["content"] ?></p>
+                        <div class="rippleContent" id="comments<?=$row['num']?>">
+
                         <?php
+                        //echo $row["num"];
                         $rippleRow = $dao->selectMemoRipple($row["num"]);
                         foreach ($rippleRow as $rows) :
+                            $msg_id = $rows["num"];
+                            $parent_id = $rows["parent"];
                             ?>
-                            <div id="comments">
-                                <p style="text-indent: 20px">└ <span style="color:dodgerblue"><?= $rows["nick"]; ?></span>
-                                    <span style="color:slategray"><?= $rows["regist_day"]; ?></span>
+
+                                <p>└ <span class="nick"><?= $rows["nick"]; ?></span>
+                                     <span class="day"><?= $rows["regist_day"]; ?></span>
                                     <?php
                                     if ($userid == "admin" || $_SESSION["userid"] == $rows["id"]) {
-                                        echo "<a href='#none' onclick='del_momo_ripple($rows[num])' class=\"btn btn-link\">삭제</a>";
+                                        echo "<a href='#none' onclick='del_memo_ripple($msg_id)' class=\"btn btn-link\">삭제</a>";
                                     }
 
                                     ?>
                                 </p>
 
-                                <p style="text-indent: 20px"><?= $rows["content"]; ?></p>
+                                <p><?= $rows["content"]; ?></p>
 
-                            </div>
-                            <hr>
+
                         <?php endforeach; ?>
-
+                            <?php
+                                $rippleNum = $dao->getNumRippleMsgs($parent_id);
+                                if ($rippleNum >3) :
+                            ?>
+                            <div id="more<?=$parent_id ?>" class="morebox<?=$parent_id?>">
+                                <a href="#none" class="more<?=$parent_id?> btn btn-info btn-block" role="button"
+                                 onclick="moreComment('<?=$msg_id?>','<?=$parent_id?>')">more</a>
+                            </div>
+                            <?php
+                                endif;
+                            ?>
+                        </div>
+                        <hr>
                         <form name="ripple_form" id="ripple_form" class="form-group">
                             <div class="row">
                                 <div class="col-sm-10">
@@ -186,6 +166,7 @@ $commentCount = 3;
                                 </div>
                             </div>
                         </form>
+
                     </div>
                     <br><br>
                 <?php endforeach; ?>
@@ -211,7 +192,7 @@ $commentCount = 3;
                         <?php endif ?>
                     </ul>
                 </div>
-            <?php endif ?>
+
         </div>
 
     </div><!-- row end -->

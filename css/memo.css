@@ -1,0 +1,47 @@
+#valid {
+    display: none;
+}
+.memoContent{
+    background: #CBE8F6;border-radius:5px
+}
+.memoContent p{
+    text-indent: 10px
+}
+
+.rippleContent p{
+    text-indent: 20px;
+}
+
+.rippleContent p span.nick{
+    color:dodgerblue;
+}
+
+.rippleContent p span.day{
+    color:slategray;
+    font-size: 11px;
+}
+@media screen and (max-width: 568px) {
+    .lmenu {
+        display: none
+    }
+
+    .memobtn {
+        width: 100%;
+    }
+
+
+}
+
+@media screen and (min-width: 1200px) {
+    .memobtn {
+        width: 100%;
+        height: 160px;
+    }
+
+    .ripplebtn {
+        width: 100%;
+        height: 40px;
+        vertical-align: middle;
+    }
+}
+

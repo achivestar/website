@@ -119,7 +119,7 @@ class memoDao
     //memo의 전체 레코드 반환
     public function selectMemoRipple($num){
         try {
-            $query = $this->db->prepare("SELECT * FROM memo_ripple where parent = :num");
+            $query = $this->db->prepare("SELECT * FROM memo_ripple where parent = :num  order by num desc LIMIT 3");
             $query->bindValue(":num",$num,PDO::PARAM_INT);
             $query->execute();
             $numMemoRipple = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -127,6 +127,36 @@ class memoDao
             exit($exception->getMessage());
         }
         return $numMemoRipple;
+    }
+
+
+
+
+    public function getCommentMsgs($lastMsg,$parent){
+        try {
+            $numMsgs = "";
+            $query = $this->db->prepare("SELECT * FROM memo_ripple where num < :lastmsg and parent = :parent order by num desc LIMIT 3");
+            $query->bindValue(":lastmsg",$lastMsg,PDO::PARAM_INT);
+            $query->bindValue(":parent",$parent,PDO::PARAM_INT);
+            $query->execute();
+            $numMsgs = $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+        return $numMsgs;
+    }
+
+    // 메모장의 리플 전체 글 수(전체 레코드 수) 반환
+    public function getNumRippleMsgs($parent){
+        try {
+            $query = $this->db->prepare("SELECT COUNT(*) FROM memo_ripple WHERE parent = :parent");
+            $query->bindValue(":parent",$parent,PDO::PARAM_INT);
+            $query->execute();
+            $numMsgs = $query->fetchColumn();
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+        return $numMsgs;
     }
 
     // 메모장의 전체 글 수(전체 레코드 수) 반환

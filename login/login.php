@@ -5,7 +5,7 @@ require_once("membersDao.php");
 
 $id = $_REQUEST["id"];
 $pass = $_REQUEST["pass"];
-
+$login = $_REQUEST["login"];
 $dao = new MembersDao();
 $row = $dao->selectMember($id);
 
@@ -26,7 +26,12 @@ if(!isset($row["id"])){
         $_SESSION["usernick"] = $usernick ;
         $_SESSION["userlevel"] = $userlevel;
 
-        echo "<script>location.href='../index.php';</script>";
+
+        if($login=="memo"){
+           echo "../memo/memo.php";
+        }
+
+
     }
 
 }

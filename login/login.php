@@ -28,7 +28,7 @@ if(!isset($row["id"])){
 
 
         if($login=="memo"){
-           echo "../memo/memo.php";
+          echo "<script>location.href='../memo/memo.php';</script>";
         }
 
 

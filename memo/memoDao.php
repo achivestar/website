@@ -50,8 +50,6 @@ class memoDao
                 echo "2";
             }
 
-
-
         } catch (PDOException $exception) {
             exit($exception->getMessage());
         }

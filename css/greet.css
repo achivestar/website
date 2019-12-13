@@ -1,0 +1,25 @@
+
+@media screen and (max-width: 568px) {
+    .lmenu {
+        display: none
+    }
+
+    .memobtn {
+        width: 100%;
+    }
+
+
+}
+
+@media screen and (min-width: 1200px) {
+    .memobtn {
+        width: 100%;
+        height: 160px;
+    }
+
+    .ripplebtn {
+        width: 100%;
+        height: 40px;
+        vertical-align: middle;
+    }
+}

@@ -232,12 +232,10 @@ session_start();
                             </select>
                         </label> -
                         <label class="form-check-label">
-                            <input type="text" class="form-control" name="hp2" value="<?=$hp2?>" maxlength="4"
-                            >
+                            <input type="text" class="form-control" name="hp2" value="<?=$hp2?>" maxlength="4" size="10">
                         </label> -
                         <label class="form-check-label">
-                            <input type="text" class="form-control" name="hp3" value="<?=$hp3?>" maxlength="4"
-                            >
+                            <input type="text" class="form-control" name="hp3" value="<?=$hp3?>" maxlength="4" size="10">
                         </label>
                     </div>
                 </div>

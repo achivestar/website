@@ -14,11 +14,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!--jumbotron 부분-->
+
 <div class="container">
     <?php
-        include "./lib/top_login1.php";
-        include "./lib/top_menu1.php";
+    include "./lib/top_menu1.php";
+    include "./lib/top_login1.php";
     ?>
 
 

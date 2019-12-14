@@ -26,8 +26,9 @@ $login = $_REQUEST["login"];
 <!--jumbotron 부분-->
 <div class="container">
     <?php
-    include "../lib/top_login_sub.php";
     include "../lib/top_menu_sub.php";
+    include "../lib/top_login_sub.php";
+
     ?>
     <div class="row">
         <div class="col-sm-4 lmenu">

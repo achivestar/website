@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a href="../index.php" class="navbar-brand">Bluering</a> <!-- Toggle Button -->
+    <a class="navbar-brand" href="../index.php">
+        <img src="./img/logo.png" alt="logo" style="width:40px;">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>

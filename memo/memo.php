@@ -44,8 +44,9 @@ session_start();
 <!--jumbotron 부분-->
 <div class="container">
     <?php
-    include "../lib/top_login_sub.php";
     include "../lib/top_menu_sub.php";
+    include "../lib/top_login_sub.php";
+
     include_once("memoDao.php");
 
     $dao = new memoDao();

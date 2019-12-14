@@ -234,12 +234,10 @@ session_start();
                             </select>
                         </label> -
                         <label class="form-check-label">
-                            <input type="text" class="form-control" name="hp2" placeholder="Center Number" maxlength="4"
-                                   >
+                            <input type="text" class="form-control" name="hp2" maxlength="4" size="10">
                         </label> -
                         <label class="form-check-label">
-                            <input type="text" class="form-control" name="hp3" placeholder="Last Number" maxlength="4"
-                                   >
+                            <input type="text" class="form-control" name="hp3" maxlength="4" size="10">
                         </label>
                     </div>
                 </div>

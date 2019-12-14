@@ -6,7 +6,7 @@ class greetDao
     public function __construct()
     {
         try {
-            $this->db = new PDO("mysql:host=localhost;dbname=php_db","root","");
+            $this->db = new PDO("mysql:host=localhost;dbname=kkameun","kkameun","qkagksmf1!");
             $this->db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
             $this->db->exec("set names utf8"); // 한글 깨짐 방지
         } catch (PDOException $exception) {

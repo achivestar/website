@@ -6,26 +6,13 @@ if(!isset($_SESSION["userid"])){
 require_once("greetDao.php");
 require_once("../login/membersDao.php");
 $id = $_SESSION["userid"];
-$daoMembers = new membersDao();
-$row = $daoMembers->selectMember($id);
-$name = $row["name"];
-$nick = $row["nick"];
 $subject = $_REQUEST["subject"];
-$hit = 0;
-$html_ok = $_REQUEST["html_ok"];
 $content = $_REQUEST["content"];
-if($html_ok=="y"){
-    $is_html = "y";
-}else{
-    $is_html = "";
-    $content = htmlspecialchars($content);
-}
-
 $regist_day =date("Y-m-d H:i:s");
-
+$num = $_REQUEST["num"];
 if($content){
     $dao =  new greetDao();
-    $dao->insertGreet($id,$name,$nick,$subject,$content,$regist_day,$hit,$is_html);
+    $dao->modifyGreet($subject,$content,$regist_day,$num);
 
 }
 ?>

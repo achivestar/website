@@ -25,13 +25,13 @@
             <!-- The slideshow -->
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="./img/1.jpg" alt="Los Angeles" style="width:100%;height:500px">
+                    <img src="./img/1.jpg" alt="Los Angeles" style="width:100%;height:auto">
                 </div>
                 <div class="carousel-item">
-                    <img src="./img/2.jpg" alt="Chicago"  style="width:100%;height: 500px">
+                    <img src="./img/2.jpg" alt="Chicago"  style="width:100%;height: auto">
                 </div>
                 <div class="carousel-item">
-                    <img src="./img/3.jpg" alt="New York"  style="width:100%;height: 500px">
+                    <img src="./img/3.jpg" alt="New York"  style="width:100%;height: auto">
                 </div>
             </div>
             <!-- Left and right controls -->

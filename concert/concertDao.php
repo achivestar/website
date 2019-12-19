@@ -1,5 +1,5 @@
 <?php
-class greetDao
+class concertDao
 {
     private $db;
 
@@ -15,11 +15,13 @@ class greetDao
     }
 
     //가입인사 insert
-    public function insertGreet($id,$name,$nick,$subject,$content,$regist_day,$hit,$is_html){
+    public function insertConcert($id,$name,$nick,$subject,$content,$regist_day,$hit,$is_html,$file_name_0,$file_name_1,
+        $file_name_2, $file_copied_0, $file_copied_1, $file_copied_2){
         try {
-            $query = $this->db->prepare("INSERT INTO greet (id,name,nick,subject,content,regist_day,
-                                        hit,is_html) VALUES (:id, :name, :nick, :subject, :content, :regist_day,
-                                            :hit, :is_html)");
+            $query = $this->db->prepare("INSERT INTO concert (id,name,nick,subject,content,regist_day,
+                                        hit,is_html,file_name_0,file_name_1,file_name_2,file_copied_0,file_copied_1,file_copied_2) 
+                                        VALUES (:id, :name, :nick, :subject, :content, :regist_day,
+                                            :hit, :is_html, :file_name_0, :file_name_1, :file_name_2, :file_copied_0, :file_copied_1, :file_copied_2)");
             $query->bindValue(":id",$id,PDO::PARAM_STR);
             $query->bindValue(":name",$name,PDO::PARAM_STR);
             $query->bindValue(":nick",$nick,PDO::PARAM_STR);
@@ -28,6 +30,12 @@ class greetDao
             $query->bindValue(":regist_day",$regist_day,PDO::PARAM_STR);
             $query->bindValue(":hit",$hit,PDO::PARAM_INT);
             $query->bindValue(":is_html",$is_html,PDO::PARAM_STR);
+            $query->bindValue(":file_name_0",$file_name_0,PDO::PARAM_STR);
+            $query->bindValue(":file_name_1",$file_name_1,PDO::PARAM_STR);
+            $query->bindValue(":file_name_2",$file_name_2,PDO::PARAM_STR);
+            $query->bindValue(":file_copied_0",$file_copied_0,PDO::PARAM_STR);
+            $query->bindValue(":file_copied_1",$file_copied_1,PDO::PARAM_STR);
+            $query->bindValue(":file_copied_2",$file_copied_2,PDO::PARAM_STR);
             $query->execute();
 
         } catch (PDOException $exception) {
@@ -36,9 +44,9 @@ class greetDao
     }
 
     // 전체 게시글의 카운트 구하기
-    public function countGreet(){
+    public function countConcert(){
         try {
-            $query = $this->db->prepare("SELECT COUNT(*) FROM greet");
+            $query = $this->db->prepare("SELECT COUNT(*) FROM concert");
             $query->execute();
             $numMsgs = $query->fetchColumn();
         } catch (PDOException $exception) {
@@ -50,7 +58,7 @@ class greetDao
     // $start번부터 $rows 개의 게시글 데이터 반환 (2차원배열)
     public function getManyMsgs($start, $rows){
         try {
-            $query = $this->db->prepare("SELECT * FROM greet order by num desc LIMIT :start , :rows");
+            $query = $this->db->prepare("SELECT * FROM concert order by num desc LIMIT :start , :rows");
             $query->bindValue(":start",$start,PDO::PARAM_INT);
             $query->bindValue(":rows",$rows,PDO::PARAM_INT);
             $query->execute();
@@ -62,9 +70,9 @@ class greetDao
     }
 
     // 전체 게시글 모두 구하기
-    public function selectGreet(){
+    public function selectConcert(){
         try {
-            $query = $this->db->prepare("SELECT * FROM greet order by num desc");
+            $query = $this->db->prepare("SELECT * FROM concert order by num desc");
             $query->execute();
             $numMsgs = $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $exception) {
@@ -74,9 +82,9 @@ class greetDao
     }
 
     // 게시글 하나 보기
-    public function viewGreet($num){
+    public function viewConcert($num){
         try {
-            $query = $this->db->prepare("SELECT * FROM greet WHERE num = :num");
+            $query = $this->db->prepare("SELECT * FROM concert WHERE num = :num");
             $query->bindValue(":num",$num,PDO::PARAM_INT);
             $query->execute();
             $numMsgs = $query->fetch(PDO::FETCH_ASSOC);
@@ -89,7 +97,7 @@ class greetDao
     //조회수 증가
     public function increaseHit($num){
         try {
-            $query = $this->db->prepare("UPDATE greet SET hit=hit+1 WHERE num = :num");
+            $query = $this->db->prepare("UPDATE concert SET hit=hit+1 WHERE num = :num");
             $query->bindValue(":num",$num,PDO::PARAM_INT);
             $query->execute();
         } catch (PDOException $exception) {
@@ -98,10 +106,10 @@ class greetDao
     }
 
     // 정보수정
-    public function modifyGreet($subject,$content,$regist_day,$num){
+    public function modifyConcert($subject,$content,$regist_day,$num){
         try {
             $query = $this->db->prepare
-            ("UPDATE greet SET subject = :subject, content = :content, regist_day = :regist_day WHERE num = :num");
+            ("UPDATE concert SET subject = :subject, content = :content, regist_day = :regist_day WHERE num = :num");
 
             $query->bindValue(":subject",$subject,PDO::PARAM_STR);
             $query->bindValue(":content",$content,PDO::PARAM_STR);
@@ -115,9 +123,9 @@ class greetDao
     }
 
     //정보삭제
-    public function deleteGreet($num){
+    public function deleteConcert($num){
         try {
-            $query = $this->db->prepare("DELETE FROM greet WHERE num = :num");
+            $query = $this->db->prepare("DELETE FROM concert WHERE num = :num");
             $query->bindValue(":num",$num,PDO::PARAM_INT);
             $query->execute();
 

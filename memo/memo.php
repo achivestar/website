@@ -171,7 +171,7 @@ session_start();
                     </div>
                     <br><br>
                 <?php endforeach; ?>
-
+                <?php if(isset($page)){?>
                 <div class="row justify-content-center align-items-center">
                     <ul class="pagination">
                         <?php if ($firstLink > 1) : ?>
@@ -193,7 +193,7 @@ session_start();
                         <?php endif ?>
                     </ul>
                 </div>
-
+                <?php } ?>
         </div>
 
     </div><!-- row end -->

@@ -81,6 +81,19 @@ class concertDao
         return $numMsgs;
     }
 
+    // 전체 게시글 모두 구하기
+    public function selectOneConcert($num){
+        try {
+            $query = $this->db->prepare("SELECT * FROM concert WHERE num = :num");
+            $query->bindValue(":num",$num,PDO::PARAM_INT);
+            $query->execute();
+            $numMsgs = $query->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+        return $numMsgs;
+    }
+
     // 게시글 하나 보기
     public function viewConcert($num){
         try {
@@ -117,6 +130,61 @@ class concertDao
             $query->bindValue(":num",$num,PDO::PARAM_INT);
             $query->execute();
 
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+    }
+    
+    // 이미지만 삭제하는 수정할떄
+    public function ImgUpdate($field_org_name,$org_name_value,$field_real_name,$org_real_value,$num){
+          try {
+              $sql = "";
+              if($field_org_name=="file_name_0"){
+                $sql = "UPDATE concert SET file_name_0 = :org_name_value, file_copied_0 = :org_real_value WHERE num = :num";
+              }
+              if($field_org_name=="file_name_1"){
+                  $sql = "UPDATE concert SET file_name_1 = :org_name_value, file_copied_1 = :org_real_value WHERE num = :num";
+              }
+              if($field_org_name=="file_name_2"){
+                  $sql = "UPDATE concert SET file_name_2 = :org_name_value, file_copied_2 = :org_real_value WHERE num = :num";
+              }
+
+                    $query = $this->db->prepare($sql);
+                    $query->bindValue(":org_name_value",$org_name_value,PDO::PARAM_STR);
+                    $query->bindValue(":org_real_value",$org_real_value,PDO::PARAM_STR);
+                    $query->bindValue(":num",$num,PDO::PARAM_INT);
+                    $query->execute();
+          } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+    }
+
+    // 이미지만 수정할떄
+    public function delImgUpdate($field_org_name,$org_name_value,$field_real_name,$delete_name,$i,$num){
+        try {
+            $sql = "";
+            if($i==0){
+                $sql = "UPDATE concert SET file_name_0 = '', file_copied_0 = '' WHERE num = :num";
+            }else{
+                $sql = "UPDATE concert SET file_name_0 = '', file_copied_0 = :delete_name WHERE num = :num";
+            }
+            if($i==1){
+                $sql = "UPDATE concert SET file_name_1 = '', file_copied_1 = '' WHERE num = :num";
+            }else{
+                $sql = "UPDATE concert SET file_name_1= '', file_copied_1 = :delete_name WHERE num = :num";
+            }
+            if($i==2){
+                $sql = "UPDATE concert SET file_name_2 = '', file_copied_2 = '' WHERE num = :num";
+            }else{
+                $sql = "UPDATE concert SET file_name_2= '', file_copied_2 = :delete_name WHERE num = :num";
+            }
+
+            echo $i;
+            $query = $this->db->prepare($sql);
+          //  $query->bindValue(":org_name_value",$org_name_value,PDO::PARAM_STR);
+            $query->bindValue(":delete_name",$delete_name,PDO::PARAM_STR);
+            $query->bindValue(":num",$num,PDO::PARAM_INT);
+            $query->execute();
         } catch (PDOException $exception) {
             exit($exception->getMessage());
         }

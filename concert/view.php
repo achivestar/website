@@ -106,7 +106,7 @@ session_start();
                 <div class="row">
                     <div class="col-sm-12 text-right">
                         <a href="list.php" class="btn btn-info">목록</a>
-                        <?php if($_SESSION["userid"] || $row["id"]=="admin"){ ?>
+                        <?php if($_SESSION["userid"] || $row["id"]=="admin" || $row["level"]==1){ ?>
                         <a href="update_form.php?num=<?=$row['num']?>&page=<?=$page?>" class="btn btn-info">수정</a>
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
                                 삭제

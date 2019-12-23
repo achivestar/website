@@ -13,7 +13,9 @@ session_start();
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="forms.js"></script>
     <script>
+
         $(document).ready(function(){
 
             $("#concertForm").on("submit",function(event){
@@ -74,7 +76,7 @@ session_start();
                     setTimeout(function(){
                         $("#success_message").html("");
                         location.href="./list.php";
-                    },3000);
+                    },1500);
 
                 }
             }
@@ -113,7 +115,6 @@ session_start();
                 <div class="col-12 text-center"><h3>글쓰기</h3></div>
                 <div class="col-sm-12">
                 <form name="board_form" method="post" id="concertForm" enctype="multipart/form-data">
-                    <input type="hidden" name="mode" value="insert" />
                     <div class="form-group">
                     <label for="nick">닉네임</label>&nbsp;
                         <input type="text" class="form-control" id="nick" value="<?=$_SESSION["usernick"]?>" readonly>
@@ -132,8 +133,7 @@ session_start();
                     <div class="form-group">
                         <label for="upfile1">이미지파일1</label>
                         <input type="file" class="form-control-file border" id="upfile1" name="upfile[]">
-                    </div>
-                     <div class="form-group">
+                    </div><div class="form-group">
                             <label for="upfile2">이미지파일2</label>
                             <input type="file" class="form-control-file border" id="upfile2" name="upfile[]">
                      </div>

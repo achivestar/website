@@ -95,7 +95,7 @@ session_start();
                         <?php
                         for($i=0; $i<3; $i++){
                                 if($image_copied[$i]){
-                                    echo "<img src=uploads/".$image_copied[$i]."/>";
+                                    echo "<img src=./uploads/".$image_copied[$i]." style=;width:500px;height:400px'>";
                                 }
                             }
                         ?>

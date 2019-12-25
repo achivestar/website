@@ -17,7 +17,6 @@ session_start();
     <script>
 
         $(document).ready(function(){
-
             $("#concertForm").on("submit",function(event){
                 event.preventDefault();
                 var count_error = 0;
@@ -52,7 +51,7 @@ session_start();
                         success : function(data){
                             var percentage = 0;
                             var timer = setInterval(function(){
-                                percentage = percentage + 25;
+                                percentage = percentage + 35;
                                 progress_bar_process(percentage,timer);
                             },1000);
 

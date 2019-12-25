@@ -49,7 +49,6 @@ session_start();
                             $("#process").css("display","block");
                         },
                         success : function(data){
-                            alert(data);
                             var percentage = 0;
                             var timer = setInterval(function(){
                                 percentage = percentage + 25;

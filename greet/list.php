@@ -13,6 +13,22 @@ session_start();
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script>
+        function search() {
+            if($("#search").val()!="" ){
+                $.ajax({
+                    url: "./search.php",
+                    type: "post",
+                    data: {"search": $("#search").val()},
+                    dataType: "html",
+                    success: function (data) {
+                        $("#tbody").html(data);
+                    }
+                });
+            }
+
+        }
+    </script>
     <style>
         table th{
             text-align: center;
@@ -48,25 +64,14 @@ session_start();
             <h2>가입인사</h2>
             <div class="row">
                 <div class="col-sm-6">총 <?=$total_count?> 개의 게시물이 있습니다.</div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <select class="form-control" id="sel1">
-                            <option>제목</option>
-                            <option>내용</option>
-                            <option>글쓴이</option>
-                            <option>제목+내용</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6" style="margin-bottom: 10px">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="Search" id="search" name="search">
                         <div class="input-group-append">
-                            <button class="btn btn-success" type="submit">Go</button>
+                            <button class="btn btn-success" type="button" onclick="search()">Go</button>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-sm-12">
                     <table class="table table-striped">
                         <thead>
@@ -78,7 +83,7 @@ session_start();
                                 <th>조회</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody">
                         <?php foreach ($msgs as $row) :
                             $regist_day = explode(" ",$row["regist_day"]);
                             if(strlen($row["subject"])>=30){

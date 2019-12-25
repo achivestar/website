@@ -101,7 +101,7 @@ session_start();
                                     <div class="alert alert-success" id="valid" style="display: none">
                                         <strong>수정 되었습니다.</strong>
                                     </div>
-                                    <button type="button" class="btn btn-primary" onclick="modify('<?=$row['num']?>')">완료</button>
+                                    <button type="button" class="btn btn-primary" onclick="modify('<?=$row['num']?>')">수정</button>
                                     <a href="./list.php" class="btn btn-info">목록</a>
                                 </div>
                     </form>

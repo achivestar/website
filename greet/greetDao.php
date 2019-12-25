@@ -35,6 +35,19 @@ class greetDao
         }
     }
 
+    // 검색  쿼리
+    function searchGreet($search){
+        try {
+            $sql = "select * from greet where subject like '%".$search."%' or content like '%".$search."%' ";
+            $query = $this->db->prepare($sql);
+            $query->execute();
+            $numMsgs = $query->fetchAll();
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+        return $numMsgs;
+    }
+
     // 전체 게시글의 카운트 구하기
     public function countGreet(){
         try {

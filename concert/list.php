@@ -56,14 +56,6 @@ session_start();
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" type="submit">Go</button>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="col-sm-12">
                     <table class="table table-striped">

@@ -12,7 +12,6 @@
             <li class="nav-item"><a href="./concert/list.php" class="nav-link">연주회소개</a></li>
             <li class="nav-item"><a href="#" class="nav-link">자료실</a></li>
             <li class="nav-item"><a href="#" class="nav-link">자유게시판</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">레슨문의</a></li>
             <li class="nav-item"><a href="#" class="nav-link">설문조사</a></li>
         </ul>
     </div>

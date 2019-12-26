@@ -94,6 +94,32 @@ class concertDao
         return $numMsgs;
     }
 
+    // 검색  쿼리
+    function searchGreet($search){
+        try {
+            $sql = "select * from concert where subject like '%".$search."%' or content like '%".$search."%' ";
+            $query = $this->db->prepare($sql);
+            $query->execute();
+            $numMsgs = $query->fetchAll();
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+        return $numMsgs;
+    }
+
+    //검색결과 게시글의 카운트
+    public function searchCount($search){
+        try {
+            $sql = "select COUNT(*) from concert where subject like '%".$search."%' or content like '%".$search."%' ";
+            $query = $this->db->prepare($sql);
+            $query->execute();
+            $numMsgs = $query->fetchColumn();
+        } catch (PDOException $exception) {
+            exit($exception->getMessage());
+        }
+        return $numMsgs;
+    }
+
     // 게시글 하나 보기
     public function viewConcert($num){
         try {

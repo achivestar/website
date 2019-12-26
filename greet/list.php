@@ -14,20 +14,26 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script>
-        function search() {
-            if($("#search").val()!="" ){
-                $.ajax({
-                    url: "./search.php",
-                    type: "post",
-                    data: {"search": $("#search").val()},
-                    dataType: "html",
-                    success: function (data) {
-                        $("#tbody").html(data);
-                    }
-                });
-            }
+        $(document).ready(function() {
+            $('#greet_board').submit(function (event) {
+                 event.preventDefault();
+                  if($("#search").val()!="" ){
+                       $.ajax({
+                           url: "./search.php?mode=search",
+                           type: "post",
+                           data: {"search": $("#search").val()},
+                           dataType: "html",
+                           success: function (data) {
+                               //alert(data);
+                               $("#tbody").html(data);
+                           }
+                       });
+                   }else{
+                      location.reload();
+                  }
+            });
+        });
 
-        }
     </script>
     <style>
         table th{
@@ -49,7 +55,6 @@ session_start();
     include_once("greetDao.php");
 
     $dao = new greetDao();
-
     $total_count = $dao->countGreet();
     $msgs = $dao->selectGreet();
     include_once ("./paging.php");
@@ -62,17 +67,19 @@ session_start();
         <div class="col-sm-8 col-12 container">
             <br>
             <h2>가입인사</h2>
-            <div class="row">
+            <div class="row" id="tbody">
                 <div class="col-sm-6">총 <?=$total_count?> 개의 게시물이 있습니다.</div>
                 <div class="col-sm-6" style="margin-bottom: 10px">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" type="button" onclick="search()">Go</button>
+                    <form id="greet_board">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" id="search" name="search">
+                            <div class="input-group-append">
+                                <input class="btn btn-success" type="submit" value="Go"/>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-12" >
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -83,7 +90,7 @@ session_start();
                                 <th>조회</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody">
+                        <tbody >
                         <?php foreach ($msgs as $row) :
                             $regist_day = explode(" ",$row["regist_day"]);
                             if(strlen($row["subject"])>=30){

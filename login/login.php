@@ -31,6 +31,10 @@ if(!isset($row["id"])){
              echo "<script>location.href='../memo/memo.php';</script>";
         }else if($login=="greet"){
              echo "<script>location.href='../greet/list.php';</script>";
+        }else if($login=="free"){
+            echo "<script>location.href='../free/list.php';</script>";
+        }else if($login=="concert"){
+            echo "<script>location.href='../concert/list.php';</script>";
         }else{
             echo "<script>location.href='../login/login_form.php';</script>";
         }

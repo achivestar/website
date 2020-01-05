@@ -1,5 +1,5 @@
 <?php
-require_once("concertDao.php");
+require_once("freeDao.php");
 require_once("../login/membersDao.php");
 $id = $_SESSION["userid"];
 $subject = $_REQUEST["subject"];
@@ -9,7 +9,7 @@ $mode = $_REQUEST["mode"];
 if($mode=="search"){
     echo "   <script>
         $(document).ready(function() {
-            $('#greet_board').submit(function (event) {
+            $('#free_board').submit(function (event) {
                  event.preventDefault();
                   if($('#search').val()!=\"\" ){
                        $.ajax({
@@ -29,12 +29,12 @@ if($mode=="search"){
         });
 
     </script>";
-    $dao =  new downloadDao();
-    $total_count = $dao->searchCount($search);
-    $msgs = $dao->searchGreet($search);
+    $dao =  new freeDao();
+    $total_count = $dao->searchFreeCount($search);
+    $msgs = $dao->searchFree($search);
     echo "<div class='col-sm-6'>총$total_count 개의 게시물이 있습니다.</div>";
     echo "<div class='col-sm-6' style='margin-bottom: 10px'>
-                    <form id='greet_board'>
+                    <form id='free_board'>
                         <div class='input-group'>
                             <input type='text' class='form-control' placeholder='Search' id='search' name='search'>
                             <div class='input-group-append'>

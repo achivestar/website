@@ -3,12 +3,12 @@ session_start();
 if(!isset($_SESSION["userid"])){
     echo "<script>alert('로그인 후 사용하세요');history.back();exit;</script>";
 }
-require_once("concertDao.php");
+require_once("freeDao.php");
 require_once("../login/membersDao.php");
 $id = $_SESSION["userid"];
 $daoMembers = new membersDao();
 $row = $daoMembers->selectMember($id);
-$dao =  new downloadDao();
+$dao =  new freeDao();
 $name = $row["name"];
 $nick = $row["nick"];
 $subject = $_REQUEST["subject"];
@@ -23,8 +23,8 @@ $regist_day =date("Y-m-d H:i:s");
 $check_count = $_REQUEST["del_file"];
 $num_checked = count($check_count);
 $position = $_REQUEST["del_file"];
-$rows = $dao->selectOneConcert($num);
-$dao->modifyConcert($subject,$content,$regist_day,$num);
+$rows = $dao->selectOneFree($num);
+$dao->modifyFree($subject,$content,$regist_day,$num);
 for($i=0; $i<$num_checked;$i++){
     $index = $position[$i];
     $del_ok[$index] = "y";
@@ -43,7 +43,9 @@ for($i=0; $i<$count; $i++) {
     $new_file_name = $new_file_name . "_" . $i;
     $copied_file_name[$i] = $new_file_name.".".$file_ext;
     $uploaded_file[$i] = $uploadDir.$copied_file_name[$i];
-    move_uploaded_file($upfile_tmp_name[$i], $uploaded_file[$i]);
+    if(!move_uploaded_file($upfile_tmp_name[$i], $uploaded_file[$i])){
+        // echo "복사실패";
+    }
 
 }
 

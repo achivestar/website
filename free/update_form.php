@@ -100,11 +100,11 @@ session_start();
     include "../lib/top_login_sub.php";
     include "../lib/top_menu_sub.php";
 
-    include_once("concertDao.php");
-    $dao = new downloadDao();
+    include_once("freeDao.php");
+    $dao = new freeDao();
     $num = $_REQUEST["num"];
     $page = $_REQUEST["page"];
-    $row = $dao->viewConcert($num);
+    $row = $dao->viewFree($num);
     ?>
 
     <div class="row">
@@ -113,7 +113,7 @@ session_start();
         ?>
         <div class="col-sm-8 col-12 container">
             <br>
-            <h2>연주회 소개</h2>
+            <h2>자유게시판</h2>
             <div class="row">
                 <div class="col-12 text-center"><h3>글쓰기</h3></div>
                 <div class="col-sm-12">
@@ -135,52 +135,52 @@ session_start();
                                 </div>
                                 <div class="form-group">
                                     <label for="upfile1">이미지파일1</label>
-                                    <input type="file" class="form-control-file border" id="upfile1" name="upfile[]" accept=".gif, .jpg, .png, .jpeg">
+                                    <input type="file" class="form-control-file border" id="upfile1" name="upfile[]">
                                     <?php
                                     if($row['file_name_0']) {
-                                    ?>
-                                    <p><?=$row['file_name_0']?> 파일이 등록되어 있습니다.
-                                    <input type="checkbox" name="del_file[]" value="0">삭제</p>
-                                    <?php
-                                    }
-                                    ?>
-                                </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="upfile2">이미지파일2</label>
-                                    <input type="file" class="form-control-file border" id="upfile2" name="upfile[]" accept=".gif, .jpg, .png, .jpeg">
-                                    <?php
-                                    if($row['file_name_1']) {
                                         ?>
-                                        <p><?=$row['file_name_1']?> 파일이 등록되어 있습니다.
-                                            <input type="checkbox" name="del_file[]" value="1">삭제</p>
+                                        <p><?=$row['file_name_0']?> 파일이 등록되어 있습니다.
+                                            <input type="checkbox" name="del_file[]" value="0">삭제</p>
                                         <?php
                                     }
                                     ?>
                                 </div>
-                                <div class="form-group">
-                                    <label for="upfile3">이미지파일3</label>
-                                    <input type="file" class="form-control-file border" id="upfile3" name="upfile[]" accept=".gif, .jpg, .png, .jpeg">
-                                    <?php
-                                    if($row['file_name_2']) {
-                                        ?>
-                                        <p><?=$row['file_name_2']?> 파일이 등록되어 있습니다.
-                                            <input type="checkbox" name="del_file[]" value="2">삭제</p>
-                                        <?php
-                                    }
+                            </div>
+                            <div class="form-group">
+                                <label for="upfile2">이미지파일2</label>
+                                <input type="file" class="form-control-file border" id="upfile2" name="upfile[]">
+                                <?php
+                                if($row['file_name_1']) {
                                     ?>
-                                </div>
-                                <div class="form-group" id="process" style="display: none">
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                             aria-valuemin="0" aria-valuemax="100">
-                                        </div>
+                                    <p><?=$row['file_name_1']?> 파일이 등록되어 있습니다.
+                                        <input type="checkbox" name="del_file[]" value="1">삭제</p>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="upfile3">이미지파일3</label>
+                                <input type="file" class="form-control-file border" id="upfile3" name="upfile[]">
+                                <?php
+                                if($row['file_name_2']) {
+                                    ?>
+                                    <p><?=$row['file_name_2']?> 파일이 등록되어 있습니다.
+                                        <input type="checkbox" name="del_file[]" value="2">삭제</p>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                            <div class="form-group" id="process" style="display: none">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                         aria-valuemin="0" aria-valuemax="100">
                                     </div>
                                 </div>
-                                <input type="hidden" name="num" value="<?=$row['num']?>" />
-                                <div id="success_message"></div>
-                                <input type="submit" name="save" id="save" class="btn btn-info" value="수정" />
-                                <a href="./list.php" class="btn btn-info">목록</a>
+                            </div>
+                            <input type="hidden" name="num" value="<?=$row['num']?>" />
+                            <div id="success_message"></div>
+                            <input type="submit" name="save" id="save" class="btn btn-info" value="수정" />
+                            <a href="./list.php" class="btn btn-info">목록</a>
 
                     </form>
                 </div>

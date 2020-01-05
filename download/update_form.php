@@ -100,11 +100,11 @@ session_start();
     include "../lib/top_login_sub.php";
     include "../lib/top_menu_sub.php";
 
-    include_once("concertDao.php");
+    include_once("downloadDao.php");
     $dao = new downloadDao();
     $num = $_REQUEST["num"];
     $page = $_REQUEST["page"];
-    $row = $dao->viewConcert($num);
+    $row = $dao->viewDownload($num);
     ?>
 
     <div class="row">

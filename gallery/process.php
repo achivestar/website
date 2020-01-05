@@ -3,23 +3,8 @@ session_start();
 if(!isset($_SESSION["userid"])){
     echo "<script>alert('로그인 후 사용하세요');history.back();exit;</script>";
 }
-require_once("concertDao.php");
-require_once("../login/membersDao.php");
-$id = $_SESSION["userid"];
-$daoMembers = new membersDao();
-$row = $daoMembers->selectMember($id);
-$name = $row["name"];
-$nick = $row["nick"];
+require_once("galleryDao.php");
 $subject = $_REQUEST["subject"];
-$hit = 0;
-$html_ok = $_REQUEST["html_ok"];
-$content = $_REQUEST["content"];
-if($html_ok=="y"){
-    $is_html = "y";
-}else{
-    $is_html = "";
-    $content = htmlspecialchars($content);
-}
 $uploadDir = "uploads/";
 $files = $_FILES["upfile"];
 $count = count($files["name"]);
@@ -47,14 +32,13 @@ for($i=0; $i<$count; $i++) {
 
                 if(!move_uploaded_file($upfile_tmp_name[$i], $uploaded_file[$i])){
                     echo "파일을 지정한 디렉토리에 복사하는데 실패했습니다.";
-                   exit;
+                    exit;
                 }
 
             }
         }
     }
 }
-$dao =  new concertDao();
-$dao->insertConcert($id,$name,$nick,$subject,$content,$regist_day,$hit,$is_html,
-    $upfile_name[0],$upfile_name[1],$upfile_name[2],$copied_file_name[0],$copied_file_name[1],$copied_file_name[2]);
+$dao =  new galleryDao();
+$dao->insertGallery($subject,$upfile_name[0],$upfile_name[1],$upfile_name[2],$copied_file_name[0],$copied_file_name[1],$copied_file_name[2]);
 ?>

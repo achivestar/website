@@ -3,7 +3,7 @@ session_start();
 if(!isset($_SESSION["userid"])){
     echo "<script>alert('로그인 후 사용하세요');history.back();exit;</script>";
 }
-require_once("concertDao.php");
+require_once("downloadDao.php");
 require_once("../login/membersDao.php");
 $id = $_SESSION["userid"];
 $daoMembers = new membersDao();
@@ -23,8 +23,8 @@ $regist_day =date("Y-m-d H:i:s");
 $check_count = $_REQUEST["del_file"];
 $num_checked = count($check_count);
 $position = $_REQUEST["del_file"];
-$rows = $dao->selectOneConcert($num);
-$dao->modifyConcert($subject,$content,$regist_day,$num);
+$rows = $dao->selectOneDownload($num);
+$dao->modifyDownload($subject,$content,$regist_day,$num);
 for($i=0; $i<$num_checked;$i++){
     $index = $position[$i];
     $del_ok[$index] = "y";
@@ -53,12 +53,14 @@ for($i=0; $i<$count; $i++){
     $field_real_name = "file_copied_".$i;
     $org_name_value = $upfile_name[$i];
     $org_real_value = $copied_file_name[$i];
+    $file_type_field = "file_type_".$i;
+    $file_type = $upfile_type[$i];
     if($del_ok[$i]=="y"){
         $delete_field = "file_copied_".$i;
         $delete_name = $rows[$delete_field];
         $delete_path = "./uploads/".$delete_name;
         unlink($delete_path);
-        $dao->DelImgUpdate($field_org_name,$org_name_value,$field_real_name,$org_real_value,$num);
+        $dao->DelImgUpdate($field_org_name,$org_name_value,$field_real_name,$org_real_value,$file_type_field,$file_type,$num);
 
     }else{
         if(!$upfile_error[$i]){
@@ -66,7 +68,7 @@ for($i=0; $i<$count; $i++){
             $delete_name = $rows[$delete_field];
             $delete_path = "./uploads/".$delete_name;
             unlink($delete_path);
-            $dao->ImgUpdate($field_org_name,$org_name_value,$field_real_name,$org_real_value,$num);
+            $dao->ImgUpdate($field_org_name,$org_name_value,$field_real_name,$org_real_value,$file_type_field,$file_type,$num);
 
         }
     }

@@ -13,47 +13,9 @@ session_start();
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
     <script>
 
         $(document).ready(function(){
-            $('#upfile1').on('change', function() {
-                myfile= $(this).val();
-                var ext = myfile.split('.').pop();
-                if(ext!="gif" && ext!="png" && ext!="jpg" && ext!="jpeg"){
-                  $(".error1").html("이미지파일만 업로드 가능합니다.");
-                    $("#upfile1").val("");
-
-                }else{
-                    $(".error1").html("");
-                }
-
-            });
-            $('#upfile2').on('change', function() {
-                myfile= $(this).val();
-                var ext = myfile.split('.').pop();
-                if(ext!="gif" && ext!="png" && ext!="jpg" && ext!="jpeg"){
-                    $(".error2").html("이미지파일만 업로드 가능합니다.");
-                    $("#upfile2").val("");
-
-                }else{
-                    $(".error2").html("");
-                }
-
-            });
-            $('#upfile3').on('change', function() {
-                myfile= $(this).val();
-                var ext = myfile.split('.').pop();
-                if(ext!="gif" && ext!="png" && ext!="jpg" && ext!="jpeg"){
-                    $(".error3").html("<span style='color:red'>이미지파일만 업로드 가능합니다.</span>");
-                    $("#upfile3").val("");
-
-                }else{
-                    $(".error3").html("");
-                }
-
-            });
-
             $("#concertForm").on("submit",function(event){
                 event.preventDefault();
                 var count_error = 0;
@@ -71,8 +33,6 @@ session_start();
                 }else{
                     $("#content_error").text("");
                 }
-
-
 
                 if(count_error==0){
                     $.ajax({
@@ -148,7 +108,7 @@ session_start();
         ?>
         <div class="col-sm-8 col-12 container">
             <br>
-            <h2>연주회 소개</h2>
+            <h2>자료실</h2>
             <div class="row">
                 <div class="col-12 text-center"><h3>글쓰기</h3></div>
                 <div class="col-sm-12">
@@ -169,15 +129,21 @@ session_start();
                         <span id="content_error" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="upfile1">이미지파일1</label> <span class="error1"></span>
-                        <input type="file" class="form-control-file" id="upfile1" name="upfile[]" accept=".gif, .jpg, .png, .jpeg">
+                        <label for="upfile1">이미지파일1</label>
+                        <input type="file" class="form-control-file border" id="upfile1" name="upfile[]" accept=
+                        "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+text/plain, application/pdf, image/*">
                     </div><div class="form-group">
-                            <label for="upfile2">이미지파일2</label>  <span class="error2"></span>
-                            <input type="file" class="form-control-file" id="upfile2" name="upfile[]" accept=".gif, .jpg, .png, .jpeg">
+                            <label for="upfile2">이미지파일2</label>
+                            <input type="file" class="form-control-file border" id="upfile2" name="upfile[]" accept=
+                            "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+text/plain, application/pdf, image/*">
                      </div>
                      <div class="form-group">
-                            <label for="upfile3">이미지파일3</label>  <span class="error3"></span>
-                            <input type="file" class="form-control-file" id="upfile3" name="upfile[]" accept=".gif, .jpg, .png, .jpeg">
+                            <label for="upfile3">이미지파일3</label>
+                            <input type="file" class="form-control-file border" id="upfile3" name="upfile[]"accept=
+                            "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+text/plain, application/pdf, image/*">
                      </div>
                      <div class="form-group" id="process" style="display: none">
                             <div class="progress">

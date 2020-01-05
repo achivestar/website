@@ -31,6 +31,15 @@ session_start();
 
             });
         }
+        $(document).ready(function(){
+            $("#download").on("show.bs.modal",function(event){
+                var button = $(event.relatedTarget);
+                var titleTxt = button.data("title");
+                var modal = $(this);
+                $(".download").attr("href",titleTxt);
+            });
+        });
+
     </script>
     <style>
         table th{
@@ -49,12 +58,12 @@ session_start();
     include "../lib/top_menu_sub.php";
     include "../lib/top_login_sub.php";
 
-    include_once("concertDao.php");
+    include_once("downloadDao.php");
     $page = $_REQUEST["page"];
-    $dao = new concertDao();
+    $dao = new downloadDao();
     $num = $_REQUEST["num"];
 
-    $row = $dao->viewConcert($num);
+    $row = $dao->viewDownload($num);
     if($_SESSION["userid"]!=$row["id"]){
         $dao->increaseHit($num);
     }
@@ -65,9 +74,16 @@ session_start();
         $content = str_replace(" ","&nbsp;",$row["content"]);
         $content = str_replace("\n","<br>",$row["content"]);
     }
-    $image_copied[0] = $row["file_copied_0"];
-    $image_copied[1] = $row["file_copied_1"];
-    $image_copied[2] = $row["file_copied_2"];
+
+    $file_name[0] = $row["file_name_0"];
+    $file_name[1] = $row["file_name_1"];
+    $file_name[2] = $row["file_name_2"];
+    $file_type[0] = $row["file_type_0"];
+    $file_type[1] = $row["file_type_1"];
+    $file_type[2] = $row["file_type_2"];
+    $file_copied[0] = $row["file_copied_0"];
+    $file_copied[1] = $row["file_copied_1"];
+    $file_copied[2] = $row["file_copied_2"];
     ?>
 
     <div class="row">
@@ -94,24 +110,24 @@ session_start();
                         <p>
                         <?php
                         for($i=0; $i<3; $i++){
-                                if($image_copied[$i]){
-                                    $imageinfo = GetImageSize("./uploads/".$image_copied[$i]);
-                                    $image_width[$i] = $imageinfo[0];
-                                    $image_height[$i] = $imageinfo[1];
-                                    $image_type[$i] = $imageinfo[2];
+                              if($file_copied[$i] && $_SESSION["userid"]){
+                                  $show_name = $file_name[$i];
+                                  $real_name = $file_copied[$i];
+                                  $real_type = $file_type[$i];
+                                  $file_path = "./uploads/".$real_name;
+                                  $file_size = filesize($file_path);
 
-                                    if($image_width[$i] > 730)
-                                        $image_width[$i] = 730;
-                                    echo "<img src='./uploads/$image_copied[$i]' width='$image_width[$i]' /><br><br>";
-                                }else{
-                                    $image_width[$i] = "";
-                                    $image_height[$i] = "";
-                                    $image_type[$i] = "";
-                                }
+                                  echo "첨부파일 : $show_name ($file_size Bytes)&nbsp;&nbsp;&nbsp;&nbsp;";
+                                  echo "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#download'
+                                data-title='download.php?table=download&num=$num&real_name=$real_name&show_name=$show_name&file_type=$real_type'>
+                               저장</button>";
+                                  echo "<br>";
 
+                              }
                             }
                         ?>
                         </p>
+
                        <p style="height: 18em;"><?=$content?></p>
                     </div>
                 </div>
@@ -151,6 +167,32 @@ session_start();
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="del('<?=$row['num']?>')">삭제</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="download">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                다운로드 하시겠습니까?
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <a  class="download btn btn-info" style="color:#fff"> Download</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
 
         </div>

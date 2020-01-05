@@ -34,7 +34,7 @@ endforeach;
         var session_id = "<?=$_SESSION['userid']?>";
 
         if(id){
-            $("#more"+id).html('<img src="loading.gif" style="width:10px;height:10px"/>');
+            $("#more"+id).html('<img src="../img/loading.gif" style="width:10px;height:10px"/>');
             $.ajax({
                 type: "POST",
                 url: "ajax_more.php",

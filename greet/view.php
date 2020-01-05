@@ -10,6 +10,7 @@ session_start();
     <title>Bluering 연주회</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/greet.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -32,15 +33,6 @@ session_start();
             });
         }
     </script>
-    <style>
-        table th{
-            text-align: center;
-        }
-        table td {
-            font-size: 12px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 <!--jumbotron 부분-->
@@ -92,7 +84,7 @@ session_start();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 text-right">
+                    <div class="col-sm-12 text-right" style="margin-bottom: 20px;">
                         <a href="list.php" class="btn btn-info">목록</a>
                         <?php if($_SESSION["userid"] || $row["id"]=="admin"){ ?>
                         <a href="update_form.php?num=<?=$row['num']?>&page=<?=$page?>" class="btn btn-info">수정</a>
@@ -105,7 +97,11 @@ session_start();
                 </div>
             </div>
         </div>
+    <?php
+    include_once "../lib/footer.php";
+    ?>
     </div><!-- row end -->
+
 </div> <!-- container -->
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
@@ -131,6 +127,8 @@ session_start();
 
         </div>
     </div>
+
 </div>
+
 </body>
 </html>

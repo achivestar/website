@@ -10,6 +10,7 @@ session_start();
     <title>Bluering 연주회</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/concert.css"/>
+    <link rel="stylesheet" href="../css/common.css"/>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -41,15 +42,6 @@ session_start();
         });
 
     </script>
-    <style>
-        table th{
-            text-align: center;
-        }
-        table td {
-            font-size: 12px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 <!--jumbotron 부분-->
@@ -146,6 +138,9 @@ session_start();
             </div>
         </div>
     </div><!-- row end -->
+<?php
+include_once "../lib/footer.php";
+?>
 </div> <!-- container -->
 <!-- The Modal -->
 <div class="modal fade" id="myModal">

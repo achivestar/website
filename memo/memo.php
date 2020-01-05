@@ -10,6 +10,7 @@ session_start();
     <title>Bluering 연주회</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/memo.css" />
+    <link rel="stylesheet" href="../css/common.css" />
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -197,8 +198,9 @@ session_start();
         </div>
 
     </div><!-- row end -->
-
-
+    <?php
+        include_once "../lib/footer.php";
+    ?>
 </div>
 
 </body>

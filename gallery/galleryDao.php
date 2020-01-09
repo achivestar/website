@@ -15,18 +15,14 @@ class galleryDao
     }
 
     //이미지 삽입
-    public function insertGallery($subject,$file_name_0,$file_name_1,
-                                  $file_name_2, $file_copied_0, $file_copied_1, $file_copied_2){
+    public function insertGallery($subject,$file_name_0,$file_copied_0){
         try {
-            $query = $this->db->prepare("INSERT INTO gallery (subject,file_name_0,file_name_1,file_name_2,file_copied_0,file_copied_1,file_copied_2) 
-                                        VALUES (:subject, :file_name_0, :file_name_1, :file_name_2, :file_copied_0, :file_copied_1, :file_copied_2)");
+            $query = $this->db->prepare("INSERT INTO gallery (subject,file_name_0,file_copied_0) 
+                                        VALUES (:subject, :file_name_0, :file_copied_0)");
             $query->bindValue(":subject",$subject,PDO::PARAM_STR);
             $query->bindValue(":file_name_0",$file_name_0,PDO::PARAM_STR);
-            $query->bindValue(":file_name_1",$file_name_1,PDO::PARAM_STR);
-            $query->bindValue(":file_name_2",$file_name_2,PDO::PARAM_STR);
             $query->bindValue(":file_copied_0",$file_copied_0,PDO::PARAM_STR);
-            $query->bindValue(":file_copied_1",$file_copied_1,PDO::PARAM_STR);
-            $query->bindValue(":file_copied_2",$file_copied_2,PDO::PARAM_STR);
+
             $query->execute();
 
         } catch (PDOException $exception) {

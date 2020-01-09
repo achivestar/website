@@ -15,13 +15,13 @@ class freeDao
     }
 
     //게시판 글 insert
-    public function insertFree($id,$name,$nick,$subject,$content,$regist_day,$hit,$is_html,$file_name_0,$file_name_1,
+    public function insertFree($id,$name,$nick,$subject,$content,$regist_day,$hit,$file_name_0,$file_name_1,
                                   $file_name_2, $file_copied_0, $file_copied_1, $file_copied_2){
         try {
             $query = $this->db->prepare("INSERT INTO free (id,name,nick,subject,content,regist_day,
-                                        hit,is_html,file_name_0,file_name_1,file_name_2,file_copied_0,file_copied_1,file_copied_2) 
+                                        hit,file_name_0,file_name_1,file_name_2,file_copied_0,file_copied_1,file_copied_2) 
                                         VALUES (:id, :name, :nick, :subject, :content, :regist_day,
-                                            :hit, :is_html, :file_name_0, :file_name_1, :file_name_2, :file_copied_0, :file_copied_1, :file_copied_2)");
+                                            :hit, :file_name_0, :file_name_1, :file_name_2, :file_copied_0, :file_copied_1, :file_copied_2)");
             $query->bindValue(":id",$id,PDO::PARAM_STR);
             $query->bindValue(":name",$name,PDO::PARAM_STR);
             $query->bindValue(":nick",$nick,PDO::PARAM_STR);
@@ -29,7 +29,6 @@ class freeDao
             $query->bindValue(":content",$content,PDO::PARAM_STR);
             $query->bindValue(":regist_day",$regist_day,PDO::PARAM_STR);
             $query->bindValue(":hit",$hit,PDO::PARAM_INT);
-            $query->bindValue(":is_html",$is_html,PDO::PARAM_STR);
             $query->bindValue(":file_name_0",$file_name_0,PDO::PARAM_STR);
             $query->bindValue(":file_name_1",$file_name_1,PDO::PARAM_STR);
             $query->bindValue(":file_name_2",$file_name_2,PDO::PARAM_STR);

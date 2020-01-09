@@ -49,6 +49,6 @@ for($i=0; $i<$count; $i++) {
     }
 }
 $dao =  new freeDao();
-$dao->insertFree($id,$name,$nick,$subject,$content,$regist_day,$hit,$is_html,
+$dao->insertFree($id,$name,$nick,$subject,$content,$regist_day,$hit,
     $upfile_name[0],$upfile_name[1],$upfile_name[2],$copied_file_name[0],$copied_file_name[1],$copied_file_name[2]);
 ?>

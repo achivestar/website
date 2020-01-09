@@ -75,16 +75,6 @@ session_start();
 
         });
     </script>
-    <style>
-        .subject{
-            font-size: 11px;
-            display: none;
-        }
-        .content{
-            font-size: 11px;
-            display: none;
-        }
-    </style>
 </head>
 <body>
 <!--jumbotron 부분-->
@@ -116,15 +106,8 @@ session_start();
                                     <span id="subject_error" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="upfile1">이미지파일1</label>
+                                    <label for="upfile1">이미지파일</label>
                                     <input type="file" class="form-control-file border" id="upfile1" name="upfile[]" accept=".gif, .jpg, .png, .jpe">
-                                </div><div class="form-group">
-                                    <label for="upfile2">이미지파일2</label>
-                                    <input type="file" class="form-control-file border" id="upfile2" name="upfile[]" accept=".gif, .jpg, .png, .jpe">
-                                </div>
-                                <div class="form-group">
-                                    <label for="upfile3">이미지파일3</label>
-                                    <input type="file" class="form-control-file border" id="upfile3" name="upfile[]" accept=".gif, .jpg, .png, .jpeg">
                                 </div>
                                 <div class="form-group" id="process" style="display: none">
                                     <div class="progress">

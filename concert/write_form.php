@@ -14,6 +14,7 @@ session_start();
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="../js/common.js"></script>
 
     <script>
 
@@ -178,7 +179,7 @@ session_start();
                             </div>
                      </div>
                      <div id="success_message"></div>
-                        <input type="submit" name="save" id="save" class="btn btn-info" value="등록" />
+                        <input type="submit" name="save" id="save" class="btn btn-info" value="등록"/>
                         <a href="./list.php" class="btn btn-info">목록</a>
 
                 </form>

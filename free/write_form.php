@@ -14,7 +14,7 @@ session_start();
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="forms.js"></script>
+    <script src="../js/common.js"></script>
     <script>
 
         $(document).ready(function(){
@@ -137,7 +137,17 @@ session_start();
                                     </div>
                                 </div>
                                 <div id="success_message"></div>
+                                <?php
+                                  if ($_SESSION["userid"]) {
+                                ?>
                                 <input type="submit" name="save" id="save" class="btn btn-info" value="등록" />
+                                <?php
+                                     } else{
+                                ?>
+                                <input type="submit" name="save" id="save" class="btn btn-info" value="등록"   onclick="add_not('free')"/>
+                                <?php
+                                   }
+                                ?>
                                 <a href="./list.php" class="btn btn-info">목록</a>
 
                     </form>

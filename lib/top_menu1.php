@@ -13,6 +13,7 @@
             <li class="nav-item"><a href="./gallery/list.php" class="nav-link">갤러리</a></li>
             <li class="nav-item"><a href="./download/list.php" class="nav-link">자료실</a></li>
             <li class="nav-item"><a href="./free/list.php" class="nav-link">자유게시판</a></li>
+            <li class="nav-item"><a href="./culture/list.php" class="nav-link">공연정보</a></li>
             <li class="nav-item"><a href="./survey/list.php" class="nav-link">설문조사</a></li>
         </ul>
     </div>

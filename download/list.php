@@ -107,7 +107,13 @@ session_start();
                 </div>
 
                 <div class="col-sm-12 text-right">
-                    <a href="write_form.php" class="btn btn-info">글쓰기</a>
+                    <?php
+                    if ($_SESSION["userid"]=="admin") {
+                        ?>
+                        <a href="write_form.php" class="btn btn-info">글쓰기</a>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
             <?php if(isset($page)){?>

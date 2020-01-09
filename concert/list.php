@@ -14,6 +14,7 @@ session_start();
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="../js/common.js"></script>
     <script>
         $(document).ready(function() {
             $('#concert_board').submit(function (event) {
@@ -107,7 +108,17 @@ session_start();
                 </div>
 
                 <div class="col-sm-12 text-right">
-                    <a href="write_form.php" class="btn btn-info">글쓰기</a>
+                    <?php
+                     if ($_SESSION["userid"]) {
+                    ?>
+                        <a href="write_form.php" class="btn btn-info">글쓰기</a>
+                    <?php
+                     }else {
+                     ?>
+                         <a href="#none" class="btn btn-info" onclick="add_not('concert')">글쓰기</a>
+                      <?php
+                         }
+                     ?>
                 </div>
             </div>
             <?php if(isset($page)){?>

@@ -28,8 +28,6 @@ for($i=0; $i<$count; $i++) {
                 $copied_file_name[$i] = $new_file_name.".".$file_ext;
                 $uploaded_file[$i] = $uploadDir.$copied_file_name[$i];
 
-
-
                 if(!move_uploaded_file($upfile_tmp_name[$i], $uploaded_file[$i])){
                     echo "파일을 지정한 디렉토리에 복사하는데 실패했습니다.";
                     exit;
@@ -40,5 +38,5 @@ for($i=0; $i<$count; $i++) {
     }
 }
 $dao =  new galleryDao();
-$dao->insertGallery($subject,$upfile_name[0],$upfile_name[1],$upfile_name[2],$copied_file_name[0],$copied_file_name[1],$copied_file_name[2]);
+$dao->insertGallery($subject,$upfile_name[0],$copied_file_name[0]);
 ?>

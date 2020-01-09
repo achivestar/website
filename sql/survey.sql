@@ -1,5 +1,5 @@
 create table survey(
-                       id int not null auto_increment primary key,
+                       num int not null auto_increment primary key,
                        subject varchar(100) not null,
                        class_name_0 varchar(30),
                        class_name_1 varchar(30),

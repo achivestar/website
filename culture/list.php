@@ -49,15 +49,14 @@ session_start();
                     <?php
 
                     $url = "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/period?ServiceKey=su8PUzCodKId0bF%2BFq0Q2yLNfqt2YflX4hPXh%2F4ogLBahdqZtvoDs2F64%2BxiAwVFzXLDJd8tT2gmDgtXxMRAxg%3D%3D&id=1";
-                    //기간 &from=20190101&to=20191231
-                    //달력을 만들어서 검색기능을 구현하면 좋을듯
-
-                    //상세페이지 하나만들어서 상세페이지에 $detailURL과 넘어온 seq번호를 조합하여 상세페이지를 만들면 될듯
-                    $data = file_get_contents($url);
-
-                    $xml = simplexml_load_string($data);
-
-                    $obj_addr = $xml->msgBody[0];
+                
+                    $ch = curl_init();	
+					cURL_setopt($ch, CURLOPT_URL, $url);
+					cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					$response = cURL_exec($ch);
+					cURL_close($ch); 	
+					$load_string = simplexml_load_string($response);
+					$obj_addr = $load_string->msgBody[0];
                     ?>
 
                     <table class="table table-striped">

@@ -47,9 +47,13 @@ session_start();
         include_once "../lib/left_menu_sub.php";
         $seq = $_REQUEST["seq"];
         $detailUrl = "http://www.culture.go.kr/openapi/rest/publicperformancedisplays/d/?ServiceKey=su8PUzCodKId0bF%2BFq0Q2yLNfqt2YflX4hPXh%2F4ogLBahdqZtvoDs2F64%2BxiAwVFzXLDJd8tT2gmDgtXxMRAxg%3D%3D&id=1&seq=".$seq;
-        $data = file_get_contents($detailUrl);
-        $xml = simplexml_load_string($data);
-        $obj_addr = $xml->msgBody[0];
+        $ch = curl_init();	
+		cURL_setopt($ch, CURLOPT_URL,  $detailUrl);
+		cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$response = cURL_exec($ch);
+		cURL_close($ch); 	
+		$load_string = simplexml_load_string($response);
+		$obj_addr = $load_string->msgBody[0];
         ?>
         <div class="col-sm-8 col-12 container">
             <br>

@@ -80,7 +80,7 @@
             $msgs_survey = $latest->get_latest_survey('survey',1);
             foreach ($msgs_survey as $row) :
                 $subject = $row["subject"];
-                $chart = 'PieChart';
+                $chart = $row['chart'];
                 echo "['".$row['class_name_0']."',".$row['point_0']."],";
                 echo "['".$row['class_name_1']."',".$row['point_1']."],";
                 echo "['".$row['class_name_2']."',".$row['point_2']."],";

@@ -54,6 +54,25 @@ table td {
         height: 330px;
     }
 
+    #latest_article{
+        display: flex;
+    }
+    #latest_article div:nth-child(3){
+        order:1;
+    }
+    #latest_article div:nth-child(1){
+        order:2;
+    }
+    #latest_article div:nth-child(2){
+        order:3;
+    }
+    #latest_article div:nth-child(4){
+        order:4;
+    }
+    #latest_article div:nth-child(5){
+        order:5;
+    }
+
     #latest_article div{
         margin-bottom: 30px;
 
@@ -89,6 +108,8 @@ table td {
     .carousel-item img.demo2{
         height: 400px;
     }
+
+
 
     #latest_article div{
         margin-bottom: 30px;
